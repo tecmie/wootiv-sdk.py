@@ -6,7 +6,7 @@ from datetime import datetime
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from .workspace_dto import WorkspaceDto
+from ..workspace_dto import WorkspaceDto
 
 __all__ = ["TokenCreateResponse"]
 

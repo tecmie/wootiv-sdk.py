@@ -6,12 +6,12 @@ from datetime import datetime
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from .workspace_dto import WorkspaceDto
+from ..workspace_dto import WorkspaceDto
 
 __all__ = ["TokenListResponse"]
 
 
-class TokenListResponse(BaseModel):
+class Token(BaseModel):
     id: str
     """The unique identifier of the workspace token"""
 
@@ -42,4 +42,4 @@ class TokenListResponse(BaseModel):
     """The workspace token entity relationship"""
 
 
-TokenListResponse = List[TokenListResponse]
+TokenListResponse = List[Token]
