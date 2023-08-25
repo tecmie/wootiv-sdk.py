@@ -28,7 +28,10 @@ client = Tecmie(
     environment="environment_1",
 )
 
-root = client.root.retrieve()
+aw = client.aws.create_signed_put_url(
+    filename="sunshine.png",
+)
+print(aw.url)
 ```
 
 While you can provide an `api_key` keyword argument, we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
@@ -50,8 +53,10 @@ client = AsyncTecmie(
 
 
 async def main():
-    root = await client.root.retrieve()
-    print(root)
+    aw = await client.aws.create_signed_put_url(
+        filename="sunshine.png",
+    )
+    print(aw.url)
 
 
 asyncio.run(main())
@@ -79,7 +84,7 @@ client = Tecmie()
 all_members = []
 # Automatically fetches more pages as needed.
 for member in client.space.members.list(
-    "REPLACE_ME",
+    "<id>",
 ):
     # Do something with member here
     all_members.append(member)
@@ -99,7 +104,7 @@ async def main() -> None:
     all_members = []
     # Iterate through items across all pages, issuing requests as needed.
     async for member in client.space.members.list(
-        "REPLACE_ME",
+        "<id>",
     ):
         all_members.append(member)
     print(all_members)
@@ -140,7 +145,9 @@ from tecmie import Tecmie
 client = Tecmie()
 
 try:
-    client.root.retrieve()
+    client.aws.create_signed_put_url(
+        filename="sunshine.png",
+    )
 except tecmie.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
