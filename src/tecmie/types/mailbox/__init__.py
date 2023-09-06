@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .query_stream_dto import QueryStreamDto as QueryStreamDto
 from .stream_create_params import StreamCreateParams as StreamCreateParams
 from .stream_create_response import StreamCreateResponse as StreamCreateResponse
 from .registry_retrieve_params import RegistryRetrieveParams as RegistryRetrieveParams

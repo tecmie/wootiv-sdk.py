@@ -85,9 +85,6 @@ from .contact_group_retrieve_params import (
 from .role_assignment_create_params import (
     RoleAssignmentCreateParams as RoleAssignmentCreateParams,
 )
-from .role_assignment_paginated_dto import (
-    RoleAssignmentPaginatedDto as RoleAssignmentPaginatedDto,
-)
 from .aws_s3_get_signed_url_response import (
     AwsS3GetSignedURLResponse as AwsS3GetSignedURLResponse,
 )

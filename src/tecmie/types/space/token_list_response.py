@@ -8,10 +8,10 @@ from pydantic import Field as FieldInfo
 from ..._models import BaseModel
 from ..workspace_dto import WorkspaceDto
 
-__all__ = ["TokenListResponse"]
+__all__ = ["TokenListResponse", "TokenListResponseItem"]
 
 
-class Token(BaseModel):
+class TokenListResponseItem(BaseModel):
     id: str
     """The unique identifier of the workspace token"""
 
@@ -42,4 +42,4 @@ class Token(BaseModel):
     """The workspace token entity relationship"""
 
 
-TokenListResponse = List[Token]
+TokenListResponse = List[TokenListResponseItem]

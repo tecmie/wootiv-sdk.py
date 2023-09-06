@@ -4,6 +4,7 @@ from typing import List, Union
 
 from pydantic import Field as FieldInfo
 
+from . import role_paginated_dto
 from .._models import BaseModel
 from .role_dto import RoleDto
 
@@ -14,7 +15,7 @@ class RolePaginatedDto(BaseModel):
     count: float
     """Count of all records"""
 
-    data: List[RoleDto]
+    data: role_paginated_dto.RolePaginatedDto
     """Array of Roles"""
 
     page: float
