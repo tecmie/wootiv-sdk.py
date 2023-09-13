@@ -102,12 +102,12 @@ class Wootiv(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous wootiv client instance.
 
-        This automatically infers the `api_key` argument from the `TECMIE_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WOOTIV_API_KEY` environment variable if it is not provided.
         """
-        api_key = api_key or os.environ.get("TECMIE_API_KEY", None)
+        api_key = api_key or os.environ.get("WOOTIV_API_KEY", None)
         if not api_key:
             raise Exception(
-                "The api_key client option must be set either by passing api_key to the client or by setting the TECMIE_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the WOOTIV_API_KEY environment variable"
             )
         self.api_key = api_key
 
@@ -273,12 +273,12 @@ class AsyncWootiv(AsyncAPIClient):
     ) -> None:
         """Construct a new async wootiv client instance.
 
-        This automatically infers the `api_key` argument from the `TECMIE_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WOOTIV_API_KEY` environment variable if it is not provided.
         """
-        api_key = api_key or os.environ.get("TECMIE_API_KEY", None)
+        api_key = api_key or os.environ.get("WOOTIV_API_KEY", None)
         if not api_key:
             raise Exception(
-                "The api_key client option must be set either by passing api_key to the client or by setting the TECMIE_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the WOOTIV_API_KEY environment variable"
             )
         self.api_key = api_key
 

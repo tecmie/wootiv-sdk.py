@@ -22,7 +22,7 @@ pip install wootiv
 from wootiv import Wootiv
 
 client = Wootiv(
-    # defaults to os.environ.get("TECMIE_API_KEY")
+    # defaults to os.environ.get("WOOTIV_API_KEY")
     api_key="my api key",
     # defaults to "production".
     environment="environment_1",
@@ -35,7 +35,7 @@ print(aw.url)
 ```
 
 While you can provide an `api_key` keyword argument, we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-and adding `TECMIE_API_KEY="my api key"` to your `.env` file so that your API Key is not stored in source control.
+and adding `WOOTIV_API_KEY="my api key"` to your `.env` file so that your API Key is not stored in source control.
 
 ## Async Usage
 
@@ -45,7 +45,7 @@ Simply import `AsyncWootiv` instead of `Wootiv` and use `await` with each API ca
 from wootiv import AsyncWootiv
 
 client = AsyncWootiv(
-    # defaults to os.environ.get("TECMIE_API_KEY")
+    # defaults to os.environ.get("WOOTIV_API_KEY")
     api_key="my api key",
     # defaults to "production".
     environment="environment_1",
