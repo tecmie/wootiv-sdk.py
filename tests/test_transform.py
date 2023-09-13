@@ -4,7 +4,7 @@ from typing import List, Union, Optional
 from datetime import date, datetime
 from typing_extensions import Required, Annotated, TypedDict
 
-from tecmie._utils import PropertyInfo, transform, parse_datetime
+from wootiv._utils import PropertyInfo, transform, parse_datetime
 
 
 class Foo1(TypedDict):

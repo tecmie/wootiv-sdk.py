@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from tecmie._types import FileTypes
-from tecmie._utils import extract_files
+from wootiv._types import FileTypes
+from wootiv._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

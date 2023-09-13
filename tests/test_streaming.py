@@ -2,7 +2,7 @@ from typing import Iterator, AsyncIterator
 
 import pytest
 
-from tecmie._streaming import SSEDecoder
+from wootiv._streaming import SSEDecoder
 
 
 @pytest.mark.asyncio

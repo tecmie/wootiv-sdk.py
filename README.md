@@ -1,27 +1,27 @@
-# Tecmie Python API Library
+# Wootiv Python API Library
 
-[![PyPI version](https://img.shields.io/pypi/v/tecmie.svg)](https://pypi.org/project/tecmie/)
+[![PyPI version](https://img.shields.io/pypi/v/wootiv.svg)](https://pypi.org/project/wootiv/)
 
-The Tecmie Python library provides convenient access to the Tecmie REST API from any Python 3.7+
+The Wootiv Python library provides convenient access to the Wootiv REST API from any Python 3.7+
 application. It includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
 ## Documentation
 
-The API documentation can be found [here](https://docs.tecmie.com).
+The API documentation can be found [here](https://docs.wootiv.com).
 
 ## Installation
 
 ```sh
-pip install tecmie
+pip install wootiv
 ```
 
 ## Usage
 
 ```python
-from tecmie import Tecmie
+from wootiv import Wootiv
 
-client = Tecmie(
+client = Wootiv(
     # defaults to os.environ.get("TECMIE_API_KEY")
     api_key="my api key",
     # defaults to "production".
@@ -39,12 +39,12 @@ and adding `TECMIE_API_KEY="my api key"` to your `.env` file so that your API Ke
 
 ## Async Usage
 
-Simply import `AsyncTecmie` instead of `Tecmie` and use `await` with each API call:
+Simply import `AsyncWootiv` instead of `Wootiv` and use `await` with each API call:
 
 ```python
-from tecmie import AsyncTecmie
+from wootiv import AsyncWootiv
 
-client = AsyncTecmie(
+client = AsyncWootiv(
     # defaults to os.environ.get("TECMIE_API_KEY")
     api_key="my api key",
     # defaults to "production".
@@ -72,14 +72,14 @@ This helps provide autocomplete and documentation within your editor. If you wou
 
 ## Pagination
 
-List methods in the Tecmie API are paginated.
+List methods in the Wootiv API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-import tecmie
+import wootiv
 
-client = Tecmie()
+client = Wootiv()
 
 all_members = []
 # Automatically fetches more pages as needed.
@@ -95,9 +95,9 @@ Or, asynchronously:
 
 ```python
 import asyncio
-import tecmie
+import wootiv
 
-client = AsyncTecmie()
+client = AsyncWootiv()
 
 
 async def main() -> None:
@@ -120,9 +120,9 @@ Alternatively, you can use the `.has_next_page()`, `.next_page_info()`, or `.get
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from tecmie import Tecmie
+from wootiv import Wootiv
 
-client = Tecmie()
+client = Wootiv()
 
 client.root.retrieve(
     params={},
@@ -131,29 +131,29 @@ client.root.retrieve(
 
 ## Handling errors
 
-When the library is unable to connect to the API (e.g., due to network connection problems or a timeout), a subclass of `tecmie.APIConnectionError` is raised.
+When the library is unable to connect to the API (e.g., due to network connection problems or a timeout), a subclass of `wootiv.APIConnectionError` is raised.
 
 When the API returns a non-success status code (i.e., 4xx or 5xx
-response), a subclass of `tecmie.APIStatusError` will be raised, containing `status_code` and `response` properties.
+response), a subclass of `wootiv.APIStatusError` will be raised, containing `status_code` and `response` properties.
 
-All errors inherit from `tecmie.APIError`.
+All errors inherit from `wootiv.APIError`.
 
 ```python
-import tecmie
-from tecmie import Tecmie
+import wootiv
+from wootiv import Wootiv
 
-client = Tecmie()
+client = Wootiv()
 
 try:
     client.aws.create_signed_put_url(
         filename="sunshine.png",
     )
-except tecmie.APIConnectionError as e:
+except wootiv.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except tecmie.RateLimitError as e:
+except wootiv.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except tecmie.APIStatusError as e:
+except wootiv.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -181,10 +181,10 @@ and >=500 Internal errors will all be retried by default.
 You can use the `max_retries` option to configure or disable this:
 
 ```python
-from tecmie import Tecmie
+from wootiv import Wootiv
 
 # Configure the default for all requests:
-client = Tecmie(
+client = Wootiv(
     # default is 2
     max_retries=0,
 )
@@ -199,16 +199,16 @@ Requests time out after 1 minute by default. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration):
 
 ```python
-from tecmie import Tecmie
+from wootiv import Wootiv
 
 # Configure the default for all requests:
-client = Tecmie(
+client = Wootiv(
     # default is 60s
     timeout=20.0,
 )
 
 # More granular control:
-client = Tecmie(
+client = Wootiv(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -226,9 +226,9 @@ You can configure the following keyword arguments when instantiating the client:
 
 ```python
 import httpx
-from tecmie import Tecmie
+from wootiv import Wootiv
 
-client = Tecmie(
+client = Wootiv(
     # Use a custom base URL
     base_url="http://my.test.server.example.com:8083",
     proxies="http://my.test.proxy.example.com",
@@ -252,7 +252,7 @@ This package generally attempts to follow [SemVer](https://semver.org/spec/v2.0.
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/tecmie/tecmie-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/wootiv/wootiv-python/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

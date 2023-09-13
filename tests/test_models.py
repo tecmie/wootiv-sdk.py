@@ -5,8 +5,8 @@ from typing_extensions import Literal
 import pytest
 from pydantic import Field
 
-from tecmie._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from tecmie._models import BaseModel
+from wootiv._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from wootiv._models import BaseModel
 
 
 class BasicModel(BaseModel):

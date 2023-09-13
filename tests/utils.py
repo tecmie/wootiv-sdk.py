@@ -5,10 +5,10 @@ from typing import Any, TypeVar, cast
 from datetime import date, datetime
 from typing_extensions import Literal, get_args, get_origin, assert_type
 
-from tecmie._types import NoneType
-from tecmie._utils import is_dict, is_list, is_list_type, is_union_type
-from tecmie._compat import PYDANTIC_V2, field_outer_type, get_model_fields
-from tecmie._models import BaseModel
+from wootiv._types import NoneType
+from wootiv._utils import is_dict, is_list, is_list_type, is_union_type
+from wootiv._compat import PYDANTIC_V2, field_outer_type, get_model_fields
+from wootiv._models import BaseModel
 
 BaseModelT = TypeVar("BaseModelT", bound=BaseModel)
 

@@ -12,9 +12,9 @@ import httpx
 import pytest
 from respx import MockRouter
 
-from tecmie import Tecmie, AsyncTecmie
-from tecmie._models import BaseModel, FinalRequestOptions
-from tecmie._base_client import BaseClient, make_request_options
+from wootiv import Wootiv, AsyncWootiv
+from wootiv._models import BaseModel, FinalRequestOptions
+from wootiv._base_client import BaseClient, make_request_options
 
 base_url = os.environ.get("API_BASE_URL", "http://127.0.0.1:4010")
 api_key = os.environ.get("API_KEY", "something1234")
@@ -26,8 +26,8 @@ def _get_params(client: BaseClient) -> dict[str, str]:
     return dict(url.params)
 
 
-class TestTecmie:
-    client = Tecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestWootiv:
+    client = Wootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     def test_raw_response(self) -> None:
         response = self.client.get("/", cast_to=httpx.Response)
@@ -59,7 +59,7 @@ class TestTecmie:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = Tecmie(
+        client = Wootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -93,7 +93,7 @@ class TestTecmie:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = Tecmie(
+        client = Wootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -145,14 +145,14 @@ class TestTecmie:
             assert copy_param is not None, f"copy() signature is missing the {name} param"
 
     def test_default_headers_option(self) -> None:
-        client = Tecmie(
+        client = Wootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = Tecmie(
+        client2 = Wootiv(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -166,7 +166,7 @@ class TestTecmie:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = Tecmie(
+        client = Wootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -317,7 +317,7 @@ class TestTecmie:
         assert response.foo == 1
 
     def test_base_url_trailing_slash(self) -> None:
-        client = Tecmie(
+        client = Wootiv(
             base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
         )
         request = client._build_request(
@@ -330,7 +330,7 @@ class TestTecmie:
         assert request.url == "http://localhost:5000/custom/path/foo"
 
     def test_base_url_no_trailing_slash(self) -> None:
-        client = Tecmie(base_url="http://localhost:5000/custom/path", api_key=api_key, _strict_response_validation=True)
+        client = Wootiv(base_url="http://localhost:5000/custom/path", api_key=api_key, _strict_response_validation=True)
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -341,7 +341,7 @@ class TestTecmie:
         assert request.url == "http://localhost:5000/custom/path/foo"
 
     def test_client_del(self) -> None:
-        client = Tecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Wootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         client.__del__()
@@ -349,7 +349,7 @@ class TestTecmie:
         assert client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = Tecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Wootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -357,8 +357,8 @@ class TestTecmie:
         assert client.is_closed()
 
 
-class TestAsyncTecmie:
-    client = AsyncTecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncWootiv:
+    client = AsyncWootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     async def test_raw_response(self) -> None:
         response = await self.client.get("/", cast_to=httpx.Response)
@@ -390,7 +390,7 @@ class TestAsyncTecmie:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -424,7 +424,7 @@ class TestAsyncTecmie:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -476,14 +476,14 @@ class TestAsyncTecmie:
             assert copy_param is not None, f"copy() signature is missing the {name} param"
 
     def test_default_headers_option(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncTecmie(
+        client2 = AsyncWootiv(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -497,7 +497,7 @@ class TestAsyncTecmie:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_default_query_option(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -648,7 +648,7 @@ class TestAsyncTecmie:
         assert response.foo == 1
 
     def test_base_url_trailing_slash(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
         )
         request = client._build_request(
@@ -661,7 +661,7 @@ class TestAsyncTecmie:
         assert request.url == "http://localhost:5000/custom/path/foo"
 
     def test_base_url_no_trailing_slash(self) -> None:
-        client = AsyncTecmie(
+        client = AsyncWootiv(
             base_url="http://localhost:5000/custom/path", api_key=api_key, _strict_response_validation=True
         )
         request = client._build_request(
@@ -674,7 +674,7 @@ class TestAsyncTecmie:
         assert request.url == "http://localhost:5000/custom/path/foo"
 
     async def test_client_del(self) -> None:
-        client = AsyncTecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncWootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         client.__del__()
@@ -683,7 +683,7 @@ class TestAsyncTecmie:
         assert client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncTecmie(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncWootiv(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
